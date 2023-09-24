@@ -1,5 +1,14 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import localFont from "next/font/local";
+
+const ginto = localFont({
+  src: [
+    {
+      path: "../public/fonts/ABCGintoNormalVariable.woff2",
+    },
+  ],
+});
 
 export const metadata: Metadata = {
   title: "Discord Clone",
@@ -8,7 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${ginto.className} bg-d-black`}>{children}</body>
     </html>
   );
 }

@@ -11,30 +11,35 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     CredentialsProvider({
-      name: "Credentials",
+      name: "sign-in",
+      id: "sign-in",
       credentials: {
-        username: {
-          label: "Username:",
-          type: "text",
-          placeholder: "your-cool-username",
-        },
-        password: {
-          label: "Password:",
-          type: "password",
-          placeholder: "your-awesome-password",
-        },
+        email: { type: "email" },
+        password: { type: "password" },
       },
       async authorize(credentials) {
-        // This is where you need to retrieve user data
-        // to verify with credentials
-        // Docs: https://next-auth.js.org/configuration/providers/credentials
-        const user = { id: "42", name: "Dave", password: "nextauth" };
+        if (!credentials) return null;
+        const { email, password } = credentials;
 
-        if (credentials?.username === user.name && credentials?.password === user.password) {
+        const user = { id: "42", email: "test@gmail.com", password: "haslo123" };
+        if (user.email == email && user.password == password) {
           return user;
-        } else {
-          return null;
         }
+        return null;
+      },
+    }),
+    CredentialsProvider({
+      name: "register",
+      id: "register",
+      credentials: {
+        email: { type: "email" },
+        password: { type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials) return null;
+        console.log("register");
+
+        return null;
       },
     }),
   ],
