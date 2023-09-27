@@ -1,9 +1,9 @@
+import Image from "next/image";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authoptions";
 import { getServerSession } from "next-auth";
 import { getProviders } from "next-auth/react";
 import { redirect } from "next/navigation";
-import Image from "next/image";
-import { LoginForm } from "@/components/LoginForm";
+import { LoginForm } from "@/components/SignInForm";
 import { RegisterForm } from "@/components/RegsiterFrom";
 
 export default async function SignInPage({ searchParams }: { searchParams: { newuser?: string } }) {

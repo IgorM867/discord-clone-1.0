@@ -1,26 +1,20 @@
-import { ChangeEvent } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 type InputProps = {
   label: string;
-  name: string;
   type?: string;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  register: () => UseFormRegisterReturn;
 };
 
-export function Input({ label, name, value, type, onChange }: InputProps) {
+export function Input({ label, type, register }: InputProps) {
   return (
-    <label className="block ">
+    <label className="block mt-5">
       {label}
       <br />
       <input
+        {...register()}
         type={type ? type : "text"}
         className="bg-d-gray rounded-md w-full p-2 border-2 border-d-white hover:border-d-purple outline-none focus:border-d-purple"
-        name={name}
-        value={value}
-        onChange={onChange}
-        autoComplete="nofill"
-        required
       />
     </label>
   );

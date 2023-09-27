@@ -1,0 +1,13 @@
+schema
+  @auth(
+    providers: [{ type: jwt, issuer: "{{ env.ISSUER_URL }}", secret: "{{ env.NEXTAUTH_SECRET }}" }]
+    rules: [{ allow: private }]
+  ) {
+  query: Query
+}
+
+type User @model {
+  name: String! @unique
+  email: Email! @unique
+  password: String
+}

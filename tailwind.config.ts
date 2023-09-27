@@ -7,11 +7,13 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      "d-purple": "#5865F2",
-      "d-black": "#23272A",
-      "d-white": "#FFFFFF",
-      "d-gray": "#D9D9D9",
+    extend: {
+      colors: {
+        "d-purple": "#5865F2",
+        "d-black": "#23272A",
+        "d-white": "#FFFFFF",
+        "d-gray": "#D9D9D9",
+      },
     },
   },
   plugins: [],
