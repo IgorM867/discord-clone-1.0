@@ -14,7 +14,7 @@ Discord-Clone is a web application built with TypeScript, Next.js, Tailwind CSS,
 
 ## Demo
 
-[Link to live demo](insert-live-demo-url-here)
+[Link to live demo](https://discord-clone-one-murex.vercel.app/)
 
 ## Features
 
