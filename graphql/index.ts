@@ -5,6 +5,14 @@ export const GetUserByEmailQuery = `
       name
       email
       password
+      servers(first: 100) {
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
     }
   }
 `;
@@ -15,6 +23,14 @@ export const GetUserByNameQuery = `
       name
       email
       password
+      servers(first: 100) {
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
     }
   }
 `;
@@ -29,4 +45,50 @@ export const createUserMutation = `
               }
 		}
 	}
+`;
+export const createServerMutation = `
+	mutation CreateServer($input: ServerCreateInput!) {
+		serverCreate(input: $input) {
+      server {
+        id
+        name
+        users(first: 10) {
+          edges {
+            node {
+              id
+              name
+              email
+            }
+          }
+        }
+        createdBy {
+          id
+          name
+          email
+        }
+      }
+		}
+	}
+`;
+export const GetServerByIdQuery = `
+  query GetServerByNameQuery($id: ID!) {
+    server(by: {id: $id }) {
+      name
+      id
+      createdBy {
+        name
+        email
+        id
+      }
+      users(first: 100) {
+        edges {
+          node {
+            name
+            email
+            id
+          }
+        }
+      }
+    }
+  }
 `;

@@ -5,10 +5,10 @@ export function SignOutButton() {
   return (
     <button
       type="button"
-      className="border-2 border-black rounded-md flex justify-center p-3 gap-4"
+      className="border-2 border-black rounded-md gap-4 h-10"
       onClick={() => signOut()}
     >
-      Sign out
+      <p>Sign out</p>
     </button>
   );
 }

@@ -53,9 +53,13 @@ export const authOptions: NextAuthOptions = {
         if (!credentials) return null;
         const { email, password, username, repeatedPassword } = credentials;
 
-        const { user: userByName } = (await getUserByName(username)) as { user: User | null };
+        const { user: userByName } = (await getUserByName(username)) as {
+          user: User | null;
+        };
         if (userByName) {
-          throw new Error("Username is already in use. Please choose another one.");
+          throw new Error(
+            "Username is already in use. Please choose another one."
+          );
         }
 
         const { user } = (await getUserByEmail(email)) as { user: User | null };
@@ -86,7 +90,8 @@ export const authOptions: NextAuthOptions = {
         },
         secret
       ),
-    decode: async ({ secret, token }) => jsonwebtoken.verify(token!, secret) as JWT,
+    decode: async ({ secret, token }) =>
+      jsonwebtoken.verify(token!, secret) as JWT,
   },
   callbacks: {
     async jwt({ token, profile }) {
@@ -95,10 +100,30 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
+    async session({ session }) {
+      const email = session?.user?.email as string;
+
+      try {
+        const data = (await getUserByEmail(email)) as { user?: User };
+        const newSession = {
+          ...session,
+          user: {
+            ...session.user,
+            ...data?.user,
+          },
+        };
+        delete newSession.user.password;
+        return newSession;
+      } catch (error) {
+        return session;
+      }
+    },
     async signIn({ account, user }) {
       if (account?.type == "oauth") {
         try {
-          const { user: existingUser } = (await getUserByEmail(user.email as string)) as {
+          const { user: existingUser } = (await getUserByEmail(
+            user.email as string
+          )) as {
             user: User | null;
           };
 

@@ -1,13 +1,26 @@
 schema
   @auth(
-    providers: [{ type: jwt, issuer: "{{ env.ISSUER_URL }}", secret: "{{ env.NEXTAUTH_SECRET }}" }]
+    providers: [
+      {
+        type: jwt
+        issuer: "{{ env.ISSUER_URL }}"
+        secret: "{{ env.NEXTAUTH_SECRET }}"
+      }
+    ]
     rules: [{ allow: private }]
   ) {
   query: Query
 }
 
 type User @model {
-  name: String! @unique
+  name: String!
   email: Email! @unique
   password: String
+  servers: [Server]
+}
+
+type Server @model {
+  name: String!
+  createdBy: User! @relation(name: "creator")
+  users: [User]
 }

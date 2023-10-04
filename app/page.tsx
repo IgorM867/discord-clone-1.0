@@ -1,18 +1,12 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]/authoptions";
 import { redirect } from "next/navigation";
-import SignOutButton from "@/components/SignOutButton";
+import { getCurrentUser } from "@/lib/actions";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  const session = await getCurrentUser();
 
   if (!session) {
     redirect("/api/auth/signin?callbackUrl=/");
+  } else {
+    redirect("/servers/direct-messages");
   }
-  return (
-    <main>
-      Discord Clone
-      <SignOutButton />
-    </main>
-  );
 }
