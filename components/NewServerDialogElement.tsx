@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Input } from "./Input";
 import XIcon from "./svgComponents/XIcon";
 import { Dispatch, SetStateAction } from "react";
-import { createServer } from "@/lib/actions";
+import { createServer, fetchToken } from "@/lib/actions";
 import { Server } from "@/common.types";
 import { useRouter } from "next/navigation";
 
@@ -32,10 +32,15 @@ export function NewServerDialogElement({
   const router = useRouter();
 
   const onSubmit = async ({ servername }: { servername: string }) => {
-    const { serverCreate } = (await createServer({
-      name: servername,
-      createdBy: userId,
-    })) as { serverCreate: { server: Server } };
+    const { token } = await fetchToken();
+
+    const { serverCreate } = (await createServer(
+      {
+        name: servername,
+        createdBy: userId,
+      },
+      token
+    )) as { serverCreate: { server: Server } };
 
     router.push(`/servers/${serverCreate.server.id}`);
   };

@@ -25,6 +25,15 @@ const serverUrl = isProduction
 
 const client = new GraphQLClient(apiUrl);
 
+export const fetchToken = async () => {
+  try {
+    const response = await fetch(`${serverUrl}/api/auth/token`);
+    return response.json();
+  } catch (err) {
+    throw err;
+  }
+};
+
 const makeGraphQLRequest = async (query: string, variables = {}) => {
   try {
     return await client.request(query, variables);
@@ -59,14 +68,18 @@ export const getUserByName = (name: string) => {
   client.setHeader("x-api-key", apiKey);
   return makeGraphQLRequest(GetUserByNameQuery, { name });
 };
-export const createServer = async ({
-  name,
-  createdBy,
-}: {
-  name: string;
-  createdBy: string;
-}) => {
+export const createServer = async (
+  {
+    name,
+    createdBy,
+  }: {
+    name: string;
+    createdBy: string;
+  },
+  token: string
+) => {
   client.setHeader("x-api-key", apiKey);
+  client.setHeader("Authorization", `Bearer ${token}`);
 
   const variables = {
     input: {
