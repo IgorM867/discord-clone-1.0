@@ -17,7 +17,7 @@ export const GetUserByEmailQuery = `
   }
 `;
 export const GetUserByNameQuery = `
-  query GetUserByEmail($name: String!) {
+  query GetUserByName($name: String!) {
     user(by: { name: $name }) {
       id
       name

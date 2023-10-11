@@ -9,7 +9,7 @@ schema
 }
 
 type User @model {
-  name: String!
+  name: String! @unique
   email: Email! @unique
   password: String
   servers: [Server]
@@ -18,5 +18,5 @@ type User @model {
 type Server @model {
   name: String!
   createdBy: User! @relation(name: "creator")
-  users: [User]! @relation(name: "users")
+  users: [User]!
 }

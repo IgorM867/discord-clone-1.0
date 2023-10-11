@@ -9,7 +9,10 @@ import { SignInGoogleButton } from "./SignInGoogleButton";
 import { Input } from "./Input";
 
 type FormProps = {
-  providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>;
+  providers: Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  >;
 };
 export function RegisterForm({ providers }: FormProps) {
   const {
@@ -38,7 +41,12 @@ export function RegisterForm({ providers }: FormProps) {
       className="bg-d-white rounded-2xl p-9 min-w-[550px] flex flex-col"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Image src="/logos/full_logo_black.svg" alt="Discord Logo" width={400} height={75} />
+      <Image
+        src="/logos/full_logo_black.svg"
+        alt="Discord Logo"
+        width={400}
+        height={75}
+      />
       <Input
         label="USERNAME"
         register={() =>
@@ -47,7 +55,9 @@ export function RegisterForm({ providers }: FormProps) {
           })
         }
       />
-      {errors.username && <p className="text-red-500">{`${errors.username.message}`}</p>}
+      {errors.username && (
+        <p className="text-red-500">{`${errors.username.message}`}</p>
+      )}
       <Input
         label="E-MAIL"
         type="email"
@@ -57,7 +67,9 @@ export function RegisterForm({ providers }: FormProps) {
           })
         }
       />
-      {errors.email && <p className="text-red-500">{`${errors.email.message}`}</p>}
+      {errors.email && (
+        <p className="text-red-500">{`${errors.email.message}`}</p>
+      )}
       <Input
         label="PASSWORD"
         type="password"
@@ -71,14 +83,17 @@ export function RegisterForm({ providers }: FormProps) {
           })
         }
       />
-      {errors.password && <p className="text-red-500">{`${errors.password.message}`}</p>}
+      {errors.password && (
+        <p className="text-red-500">{`${errors.password.message}`}</p>
+      )}
       <Input
         label="REPEAT PASSWORD"
         type="password"
         register={() =>
           register("repeatedPassword", {
             required: "Repeat password",
-            validate: (value) => value === getValues("password") || "Passwords must match",
+            validate: (value) =>
+              value === getValues("password") || "Passwords must match",
           })
         }
       />
