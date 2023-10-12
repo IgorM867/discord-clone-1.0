@@ -19,7 +19,7 @@ export function SideBar({ serverId, user }: { serverId: string; user: User }) {
           height={30}
         />
       </NavbarButton>
-      {user.servers.edges.map(({ node }) => (
+      {user.servers?.edges.map(({ node }) => (
         <NavbarButton
           key={node.id}
           label={node.name}
