@@ -61,11 +61,6 @@ export const createServerMutation = `
             }
           }
         }
-        createdBy {
-          id
-          name
-          email
-        }
       }
 		}
 	}
@@ -75,11 +70,6 @@ export const GetServerByIdQuery = `
     server(by: {id: $id }) {
       name
       id
-      createdBy {
-        name
-        email
-        id
-      }
       users(first: 100) {
         edges {
           node {

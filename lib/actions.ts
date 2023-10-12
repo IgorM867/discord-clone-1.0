@@ -84,9 +84,6 @@ export const createServer = async (
   const variables = {
     input: {
       name,
-      createdBy: {
-        link: createdBy,
-      },
       users: [
         {
           link: createdBy,

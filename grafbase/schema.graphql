@@ -17,6 +17,5 @@ type User @model {
 
 type Server @model {
   name: String!
-  createdBy: User! @relation(name: "creator")
   users: [User]!
 }
