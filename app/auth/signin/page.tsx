@@ -12,7 +12,7 @@ export default async function SignInPage({
 }) {
   const session = await getCurrentUser();
   if (session) {
-    redirect("/");
+    redirect("/servers/direct-messages");
   }
   const providers = await getProviders();
   if (!providers) {
