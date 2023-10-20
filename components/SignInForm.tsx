@@ -8,7 +8,10 @@ import { SignInGoogleButton } from "@/components/SignInGoogleButton";
 import { Input } from "./Input";
 
 type FormProps = {
-  providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>;
+  providers: Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  >;
 };
 
 export type loginForm = {
@@ -40,7 +43,12 @@ export function LoginForm({ providers }: FormProps) {
       className="bg-d-white rounded-2xl p-9 min-w-[550px] flex flex-col "
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Image src="/logos/full_logo_black.svg" alt="Discord Logo" width={400} height={75} />
+      <Image
+        src="/logos/full_logo_black.svg"
+        alt="Discord Logo"
+        width={400}
+        height={75}
+      />
       <Input
         label="E-MAIL"
         type="email"
@@ -50,7 +58,9 @@ export function LoginForm({ providers }: FormProps) {
           })
         }
       />
-      {errors.email && <p className="text-red-500">{`${errors.email.message}`}</p>}
+      {errors.email && (
+        <p className="text-red-500">{`${errors.email.message}`}</p>
+      )}
 
       <Input
         label="PASSWORD"
@@ -61,18 +71,23 @@ export function LoginForm({ providers }: FormProps) {
           })
         }
       />
-      {errors.password && <p className="text-red-500">{`${errors.password.message}`}</p>}
+      {errors.password && (
+        <p className="text-red-500">{`${errors.password.message}`}</p>
+      )}
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="bg-d-purple p-2 rounded-md text-d-white font-bold text-xl hover:bg-d-black mt-5"
+        className="bg-d-purple p-2 rounded-md text-d-white font-bold text-xl hover:bg-d-gray-400 mt-5"
       >
         Log in
       </button>
       <p className="text-center text-xl mt-5">Or</p>
       <SignInGoogleButton provider={providers.google} />
-      <Link href="/auth/signin?callbackUrl=/&newuser=true" className="text-center mt-5">
+      <Link
+        href="/auth/signin?callbackUrl=/&newuser=true"
+        className="text-center mt-5"
+      >
         No account? <span className="text-d-purple">Create one</span>
       </Link>
     </form>

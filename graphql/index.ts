@@ -5,7 +5,7 @@ export const GetUserByEmailQuery = `
       name
       email
       password
-      servers(first: 100) {
+      servers(first: 10) {
         edges {
           node {
             id
@@ -23,7 +23,7 @@ export const GetUserByNameQuery = `
       name
       email
       password
-      servers(first: 100) {
+      servers(first: 10) {
         edges {
           node {
             id
@@ -38,47 +38,45 @@ export const createUserMutation = `
 	mutation CreateUser($input: UserCreateInput!) {
 		userCreate(input: $input) {
             user {
+                id
                 name
                 email
-                password
-                id
               }
 		}
 	}
 `;
 export const createServerMutation = `
-	mutation CreateServer($input: ServerCreateInput!) {
-		serverCreate(input: $input) {
+  mutation ServerCreate($input: ServerCreateInput!) {
+    serverCreate(input: $input) {
       server {
         id
         name
-        users(first: 10) {
-          edges {
-            node {
-              id
-              name
-              email
-            }
-          }
-        }
       }
-		}
-	}
+    }
+  }
 `;
 export const GetServerByIdQuery = `
-  query GetServerByNameQuery($id: ID!) {
-    server(by: {id: $id }) {
-      name
-      id
-      users(first: 100) {
-        edges {
-          node {
-            name
-            email
+query GetServerById($id: ID!) {
+  server(by: { id: $id }) {
+    id
+    name
+    users(first:100){
+      edges {
+        node {
+          role
+          user {
             id
           }
         }
       }
+    }
+  }
+}
+`;
+export const DeleteServerMutation = `
+  mutation serverDelete($id:ID!){
+    serverDelete(by: {id: $id}){
+      deletedId
     }
   }
 `;

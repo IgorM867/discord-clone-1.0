@@ -1,8 +1,9 @@
 "use server";
-
 import { authOptions } from "@/app/api/auth/[...nextauth]/authoptions";
 import { SessionInterface } from "@/common.types";
 import {
+  DeleteServerMutation,
+  GetServerByIdQuery,
   GetUserByEmailQuery,
   GetUserByNameQuery,
   createServerMutation,
@@ -11,6 +12,7 @@ import {
 import { GraphQLClient } from "graphql-request";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const isProduction = process.env.NODE_ENV === "production";
 const apiUrl = isProduction
@@ -71,10 +73,10 @@ export const getUserByName = (name: string) => {
 export const createServer = async (
   {
     name,
-    createdBy,
+    userId,
   }: {
     name: string;
-    createdBy: string;
+    userId: string;
   },
   token: string
 ) => {
@@ -84,9 +86,17 @@ export const createServer = async (
   const variables = {
     input: {
       name,
+      serverOwner: {
+        link: userId,
+      },
       users: [
         {
-          link: createdBy,
+          create: {
+            user: {
+              link: userId,
+            },
+            role: "ADMIN",
+          },
         },
       ],
     },
@@ -94,6 +104,20 @@ export const createServer = async (
   const result = await makeGraphQLRequest(createServerMutation, variables);
   revalidatePath("/servers/[serverid]", "page");
   return result;
+};
+
+export const getServerById = (id: string) => {
+  client.setHeader("x-api-key", apiKey);
+  return makeGraphQLRequest(GetServerByIdQuery, { id });
+};
+
+export const deleteServer = async (id: string) => {
+  const { token } = await fetchToken();
+  client.setHeader("x-api-key", apiKey);
+  client.setHeader("Authorization", `Bearer ${token}`);
+
+  await makeGraphQLRequest(DeleteServerMutation, { id });
+  redirect("/servers/direct-messages");
 };
 
 export async function getCurrentUser() {

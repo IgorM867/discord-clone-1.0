@@ -9,11 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "d-black": "#23272A",
-        "d-dark-black": "#1e2124",
-        "d-dark-gray": "#282b30",
-        "d-gray": "#424549",
-        "d-light-gray": "#D9D9D9",
+        "d-gray": {
+          100: "#D9D9D9",
+          200: "#424549",
+          300: "#282b30",
+          400: "#23272A",
+          500: "#1e2124",
+        },
         "d-purple": "#5865F2",
         "d-white": "#FFFFFF",
         "d-green": "#2E8B57",

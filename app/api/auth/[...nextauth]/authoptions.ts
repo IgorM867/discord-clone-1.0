@@ -4,8 +4,12 @@ import jsonwebtoken from "jsonwebtoken";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { createUser, getUserByEmail, getUserByName } from "@/lib/actions";
-import { User } from "@/common.types";
 import { compare, hash } from "bcrypt";
+import {
+  createUserType,
+  getUserByEmailType,
+  getUserByNameType,
+} from "@/lib/types";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -23,7 +27,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials) return null;
         const { email, password } = credentials;
-        const { user } = (await getUserByEmail(email)) as { user: User | null };
+        const { user } = (await getUserByEmail(email)) as getUserByEmailType;
 
         if (!user) {
           throw new Error("That email and password combination is incorrect.");
@@ -53,16 +57,16 @@ export const authOptions: NextAuthOptions = {
         if (!credentials) return null;
         const { email, password, username, repeatedPassword } = credentials;
 
-        const { user: userByName } = (await getUserByName(username)) as {
-          user: User | null;
-        };
+        const { user: userByName } = (await getUserByName(
+          username
+        )) as getUserByNameType;
         if (userByName) {
           throw new Error(
             "Username is already in use. Please choose another one."
           );
         }
 
-        const { user } = (await getUserByEmail(email)) as { user: User | null };
+        const { user } = (await getUserByEmail(email)) as getUserByEmailType;
         if (user) {
           throw new Error("An account with this email address already exists.");
         }
@@ -74,7 +78,7 @@ export const authOptions: NextAuthOptions = {
           name: username,
           email,
           password: await hash(password, 12),
-        })) as { userCreate: User };
+        })) as createUserType;
 
         return userCreate;
       },
@@ -104,7 +108,7 @@ export const authOptions: NextAuthOptions = {
       const email = session?.user?.email as string;
 
       try {
-        const data = (await getUserByEmail(email)) as { user?: User };
+        const data = (await getUserByEmail(email)) as getUserByEmailType;
         const newSession = {
           ...session,
           user: {
@@ -123,15 +127,13 @@ export const authOptions: NextAuthOptions = {
         try {
           const { user: existingUser } = (await getUserByEmail(
             user.email as string
-          )) as {
-            user: User | null;
-          };
+          )) as getUserByEmailType;
 
           if (!existingUser) {
             (await createUser({
               name: user.name as string,
               email: user.email as string,
-            })) as { userCreate: User };
+            })) as createUserType;
           }
           return true;
         } catch (error) {

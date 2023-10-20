@@ -4,8 +4,8 @@ import { Input } from "./Input";
 import XIcon from "./svgComponents/XIcon";
 import { Dispatch, SetStateAction } from "react";
 import { createServer, fetchToken } from "@/lib/actions";
-import { Server } from "@/common.types";
 import { useRouter } from "next/navigation";
+import { createServerType } from "@/lib/types";
 
 type NewServerDialogElementProps = {
   isOpen: boolean;
@@ -37,10 +37,10 @@ export function NewServerDialogElement({
     const { serverCreate } = (await createServer(
       {
         name: servername,
-        createdBy: userId,
+        userId,
       },
       token
-    )) as { serverCreate: { server: Server } };
+    )) as createServerType;
 
     router.push(`/servers/${serverCreate.server.id}`);
   };

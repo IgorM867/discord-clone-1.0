@@ -24,7 +24,7 @@ export function NavbarButton({
       }`}
     >
       {children}
-      <div className="bg-d-dark-black content-none absolute text-d-white left-20 p-2 rounded-lg hidden group-hover:block">
+      <div className="bg-d-gray-500 content-none absolute text-d-white left-20 p-2 rounded-lg hidden group-hover:block">
         {label}
       </div>
     </Link>

@@ -14,10 +14,14 @@ export const metadata: Metadata = {
   title: "Discord Clone",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className={`${ginto.className} bg-d-black`}>{children}</body>
+      <body className={`${ginto.className} bg-d-gray-400`}>{children}</body>
     </html>
   );
 }

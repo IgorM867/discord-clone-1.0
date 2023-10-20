@@ -17,5 +17,16 @@ type User @model {
 
 type Server @model {
   name: String!
-  users: [User]!
+  serverOwner: User!
+  users: [ServerUser]
+}
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+type ServerUser @model {
+  user: User!
+  server: Server!
+  role: Role!
 }

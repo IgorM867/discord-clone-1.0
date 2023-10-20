@@ -17,7 +17,7 @@ export function NewServerButton({
   return (
     <>
       <button
-        className={`navbar-button group hover:bg-d-green hover:after:content-['Add_a_Server'] after:bg-d-dark-black after:content-none after:absolute after:text-d-white after:left-20 after:p-2 after:rounded-lg`}
+        className={`navbar-button group hover:bg-d-green hover:after:content-['Add_a_Server'] after:bg-d-gray-500 after:content-none after:absolute after:text-d-white after:left-20 after:p-2 after:rounded-lg`}
         onClick={handleClick}
       >
         <PlusIcon

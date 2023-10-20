@@ -5,7 +5,7 @@ import { User } from "@/common.types";
 
 export function SideBar({ serverId, user }: { serverId: string; user: User }) {
   return (
-    <nav className="bg-d-black p-3 flex flex-col gap-2 items-center">
+    <nav className="bg-d-gray-500 p-3 flex flex-col gap-2 items-center z-10">
       <NavbarButton
         key={"ket1"}
         label="Direct Messages"
@@ -32,7 +32,7 @@ export function SideBar({ serverId, user }: { serverId: string; user: User }) {
             .concat()}
         </NavbarButton>
       ))}
-      <div className={`bg-d-gray h-[2px] rounded-s-md w-4/5`} />
+      <div className={`bg-d-gray-200 h-[2px] rounded-s-md w-4/5`} />
       <NewServerButton username={user.name} userId={user.id} />
     </nav>
   );

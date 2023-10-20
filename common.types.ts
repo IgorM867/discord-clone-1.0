@@ -6,17 +6,9 @@ export interface User {
   email: string;
   password?: string;
   servers: {
-    edges: [{ node: Server }];
+    edges: [{ node: { id: string; name: string } }];
   };
 }
 export interface SessionInterface extends Session {
   user: SessionUser & User;
-}
-export interface Server {
-  id: string;
-  name: string;
-  createdBy: User;
-  users: {
-    edges: [{ node: User }];
-  };
 }

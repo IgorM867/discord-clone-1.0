@@ -103,7 +103,7 @@ export function RegisterForm({ providers }: FormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="bg-d-purple p-2 rounded-md text-d-white font-bold text-xl hover:bg-d-black mt-5"
+        className="bg-d-purple p-2 rounded-md text-d-white font-bold text-xl hover:bg-d-gray-400 mt-5"
       >
         Create account
       </button>
