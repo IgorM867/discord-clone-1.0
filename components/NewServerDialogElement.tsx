@@ -43,6 +43,8 @@ export function NewServerDialogElement({
     )) as createServerType;
 
     router.push(`/servers/${serverCreate.server.id}`);
+
+    return;
   };
 
   return (
